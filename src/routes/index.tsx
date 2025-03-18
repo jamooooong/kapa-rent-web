@@ -21,24 +21,26 @@ function RouteComponent() {
   );
 
   return (
-    <div>
-      Hello "/"!
-      <RentalStatus />
-      <AvailableEquipments
-        onSelect={(equipment) => {
-          // equipment 객체가 status를 포함하는지 확인
-          if (equipment && "status" in equipment) {
-            setSelectedEquipment(equipment);
-          } else {
-            console.error("Invalid equipment selected");
-          }
-        }}
-      />
-      {selectedEquipment ? (
-        <RentalForm selectedEquipment={selectedEquipment} />
-      ) : (
-        <p className="text-gray-500">장비를 선택하세요.</p>
-      )}
+    <div className="h-screen bg-gray-400 px-8 py-8">
+      <div className="mx-auto flex max-w-xl flex-col gap-8 rounded-xl bg-white p-8">
+        <p className="mx-auto text-3xl font-bold">KAPA 장비대여</p>
+        <RentalStatus />
+        <AvailableEquipments
+          onSelect={(equipment) => {
+            // equipment 객체가 status를 포함하는지 확인
+            if (equipment && "status" in equipment) {
+              setSelectedEquipment(equipment);
+            } else {
+              console.error("Invalid equipment selected");
+            }
+          }}
+        />
+        {selectedEquipment ? (
+          <RentalForm selectedEquipment={selectedEquipment} />
+        ) : (
+          <p className="text-gray-500">장비를 선택하세요.</p>
+        )}
+      </div>
     </div>
   );
 }

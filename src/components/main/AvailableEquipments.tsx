@@ -56,7 +56,7 @@ export default function AvailableEquipments({
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex w-1/4 flex-col gap-4 border border-stone-600 bg-white p-4">
+    <div className="flex flex-col gap-4 border border-stone-600 bg-white p-4">
       <p className="text-2xl font-bold">대여 장비 선택</p>
       {equipments.length === 0 ? (
         <p className="text-gray-500">현재 대여 가능한 장비가 없습니다.</p>

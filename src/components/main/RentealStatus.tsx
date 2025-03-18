@@ -64,7 +64,7 @@ export default function RentalStatus() {
   };
 
   return (
-    <div className="flex w-1/4 flex-col gap-4 border border-stone-600 bg-white p-4">
+    <div className="flex flex-col gap-4 border border-stone-600 bg-white p-4">
       <p className="text-2xl font-bold">장비대여 현황</p>
       {rentedEquipments.length === 0 ? (
         <p className="text-gray-500">현재 대여 중인 장비가 없습니다.</p>

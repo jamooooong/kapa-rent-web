@@ -130,7 +130,7 @@ export default function RentalForm({
   };
 
   return (
-    <div className="flex w-1/4 flex-col gap-4 border border-stone-600 bg-white p-4">
+    <div className="flex flex-col gap-4 border border-stone-600 bg-white p-4">
       <p className="text-2xl font-bold">장비대여 신청서</p>
       <div className="rounded-lg bg-amber-50 p-3">
         <p className="text-lg font-semibold">선택한 장비</p>

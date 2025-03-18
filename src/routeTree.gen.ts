@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as AdminAdminPageImport } from './routes/admin/adminPage'
 
 // Create/Update Routes
 
@@ -28,6 +29,12 @@ const AdminIndexRoute = AdminIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AdminAdminPageRoute = AdminAdminPageImport.update({
+  id: '/admin/adminPage',
+  path: '/admin/adminPage',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -37,6 +44,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/admin/adminPage': {
+      id: '/admin/adminPage'
+      path: '/admin/adminPage'
+      fullPath: '/admin/adminPage'
+      preLoaderRoute: typeof AdminAdminPageImport
       parentRoute: typeof rootRoute
     }
     '/admin/': {
@@ -53,36 +67,41 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin/adminPage': typeof AdminAdminPageRoute
   '/admin': typeof AdminIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/adminPage': typeof AdminAdminPageRoute
   '/admin': typeof AdminIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/admin/adminPage': typeof AdminAdminPageRoute
   '/admin/': typeof AdminIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin'
+  fullPaths: '/' | '/admin/adminPage' | '/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin'
-  id: '__root__' | '/' | '/admin/'
+  to: '/' | '/admin/adminPage' | '/admin'
+  id: '__root__' | '/' | '/admin/adminPage' | '/admin/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminAdminPageRoute: typeof AdminAdminPageRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminAdminPageRoute: AdminAdminPageRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -97,11 +116,15 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/admin/adminPage",
         "/admin/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/admin/adminPage": {
+      "filePath": "admin/adminPage.tsx"
     },
     "/admin/": {
       "filePath": "admin/index.tsx"
