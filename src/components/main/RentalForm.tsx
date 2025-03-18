@@ -9,7 +9,6 @@ const supabase = createClient(
 interface Equipment {
   id: string;
   name: string;
-  status: string; // 장비 상태를 나타내는 필드 추가
 }
 
 export default function RentalForm({
@@ -26,34 +25,43 @@ export default function RentalForm({
   });
 
   const [errorMessage, setErrorMessage] = useState("");
-  const [equipmentStatus, setEquipmentStatus] = useState(
-    selectedEquipment.status,
-  );
+  const [disabledDates, setDisabledDates] = useState<
+    { start: string; end: string }[]
+  >([]);
 
-  // 장비의 대여 상태 확인
   useEffect(() => {
-    const checkEquipmentStatus = async () => {
+    const fetchDisabledDates = async () => {
       const { data, error } = await supabase
         .from("rental_requests")
-        .select("status")
+        .select("start_date, end_date")
         .eq("equipment_id", selectedEquipment.id)
-        .in("status", ["pending", "rented"])
-        .single();
+        .in("status", ["pending", "rented"]);
 
       if (error) {
-        console.error("장비 상태 확인 오류:", error);
+        console.error("대여 일정 불러오기 오류:", error);
         return;
       }
 
       if (data) {
-        setEquipmentStatus("pending");
-      } else {
-        setEquipmentStatus("available");
+        setDisabledDates(
+          data.map((rental) => ({
+            start: rental.start_date,
+            end: rental.end_date,
+          })),
+        );
       }
     };
 
-    checkEquipmentStatus();
+    fetchDisabledDates();
   }, [selectedEquipment.id]);
+
+  const isDateAvailable = (startDate: string, endDate: string) => {
+    return !disabledDates.some(
+      ({ start, end }) =>
+        new Date(startDate) <= new Date(end) &&
+        new Date(endDate) >= new Date(start),
+    );
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -63,34 +71,27 @@ export default function RentalForm({
     }));
   };
 
-  const handleSubmitBtn = () => {
-    alert("신청이 완료되었습니다.");
-    window.location.reload();
-  };
-
   const validateForm = () => {
-    if (
-      !formData.name ||
-      !formData.studentId ||
-      !formData.phone ||
-      !formData.startDate ||
-      !formData.endDate
-    ) {
-      setErrorMessage("모든 항목을 작성해야 합니다.");
+    const { startDate, endDate } = formData;
+
+    if (!isDateAvailable(startDate, endDate)) {
+      setErrorMessage("선택한 기간에 이미 예약이 있습니다.");
       return false;
     }
-    if (new Date(formData.endDate) <= new Date(formData.startDate)) {
+
+    if (new Date(endDate) <= new Date(startDate)) {
       setErrorMessage("반납일은 대여일 이후여야 합니다.");
       return false;
     }
+
     if (
-      new Date(formData.endDate).getTime() -
-        new Date(formData.startDate).getTime() >
+      new Date(endDate).getTime() - new Date(startDate).getTime() >
       7 * 24 * 60 * 60 * 1000
     ) {
       setErrorMessage("반납일은 최대 7일 이내여야 합니다.");
       return false;
     }
+
     return true;
   };
 
@@ -100,7 +101,6 @@ export default function RentalForm({
 
     const { name, studentId, phone, startDate, endDate } = formData;
 
-    // 대여 신청을 테이블에 추가
     const { error } = await supabase.from("rental_requests").insert([
       {
         equipment_id: selectedEquipment.id,
@@ -119,17 +119,8 @@ export default function RentalForm({
       return;
     }
 
-    // 장비의 상태를 'pending'으로 변경 - 테이블 이름을 'equipments'로 수정 - 테이블 이름을 'equipments'로 수정
-    const { error: updateError } = await supabase
-      .from("equipments") // 'equipment'에서 'equipments'로 수정)  // 'equipment'에서 'equipments'로 수정
-      .update({ status: "pending" })
-      .eq("id", selectedEquipment.id);
-
-    if (updateError) {
-      console.error("장비 상태 업데이트 오류:", updateError);
-      setErrorMessage("장비 상태 업데이트 중 오류가 발생했습니다.");
-      return;
-    }
+    alert("신청이 완료되었습니다.");
+    window.location.reload();
   };
 
   return (
@@ -141,9 +132,18 @@ export default function RentalForm({
       </div>
 
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      {equipmentStatus === "pending" && (
-        <p className="text-red-500">이 장비는 대여 신청 중입니다.</p>
+
+      {disabledDates.length > 0 && (
+        <div className="bg-red-100 p-2">
+          <p className="font-semibold text-red-600">예약된 기간:</p>
+          {disabledDates.map(({ start, end }, index) => (
+            <p key={index} className="text-sm">
+              {start} ~ {end}
+            </p>
+          ))}
+        </div>
       )}
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="name" className="block text-sm font-medium">
@@ -157,7 +157,6 @@ export default function RentalForm({
             onChange={handleChange}
             className="w-full border p-2"
             required
-            disabled={equipmentStatus === "pending"}
           />
         </div>
         <div>
@@ -172,7 +171,6 @@ export default function RentalForm({
             onChange={handleChange}
             className="w-full border p-2"
             required
-            disabled={equipmentStatus === "pending"}
           />
         </div>
         <div>
@@ -187,7 +185,6 @@ export default function RentalForm({
             onChange={handleChange}
             className="w-full border p-2"
             required
-            disabled={equipmentStatus === "pending"}
           />
         </div>
         <div>
@@ -202,7 +199,6 @@ export default function RentalForm({
             onChange={handleChange}
             className="w-full border p-2"
             required
-            disabled={equipmentStatus === "pending"}
           />
         </div>
         <div>
@@ -217,14 +213,11 @@ export default function RentalForm({
             onChange={handleChange}
             className="w-full border p-2"
             required
-            disabled={equipmentStatus === "pending"}
           />
         </div>
         <button
           type="submit"
           className="w-full rounded-lg bg-amber-600 px-4 py-2 text-xl font-medium text-white"
-          disabled={equipmentStatus === "pending"}
-          onClick={handleSubmitBtn}
         >
           신청서 제출
         </button>

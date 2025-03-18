@@ -3,6 +3,7 @@ import RentalStatus from "../components/main/RentealStatus";
 import RentalForm from "../components/main/RentalForm";
 import AvailableEquipments from "../components/main/AvailableEquipments";
 import { useState } from "react";
+import EquipmentReservation from "../components/main/EquipmentReservation";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -36,7 +37,10 @@ function RouteComponent() {
           }}
         />
         {selectedEquipment ? (
-          <RentalForm selectedEquipment={selectedEquipment} />
+          <div>
+            <EquipmentReservation selectedEquipment={selectedEquipment} />
+            <RentalForm selectedEquipment={selectedEquipment} />
+          </div>
         ) : (
           <p className="text-gray-500">장비를 선택하세요.</p>
         )}
