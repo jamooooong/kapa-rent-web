@@ -63,6 +63,11 @@ export default function RentalForm({
     }));
   };
 
+  const handleSubmitBtn = () => {
+    alert("신청이 완료되었습니다.");
+    window.location.reload();
+  };
+
   const validateForm = () => {
     if (
       !formData.name ||
@@ -125,8 +130,6 @@ export default function RentalForm({
       setErrorMessage("장비 상태 업데이트 중 오류가 발생했습니다.");
       return;
     }
-
-    // TODO: 신청 완료 후 메인 화면으로 돌아가기가기
   };
 
   return (
@@ -221,6 +224,7 @@ export default function RentalForm({
           type="submit"
           className="w-full rounded-lg bg-amber-600 px-4 py-2 text-xl font-medium text-white"
           disabled={equipmentStatus === "pending"}
+          onClick={handleSubmitBtn}
         >
           신청서 제출
         </button>
