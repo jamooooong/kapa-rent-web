@@ -1,5 +1,3 @@
-import { Link } from "@tanstack/react-router";
-
 export default function Footer() {
   return (
     <div className="flex w-full flex-col items-center gap-2 bg-stone-200 px-4 py-10">

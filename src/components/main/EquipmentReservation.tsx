@@ -72,7 +72,7 @@ export default function EquipmentReservation({
             )
           }
           className="border-stroke rounded-lg p-2" // 기본 테두리 스타일
-          formatDay={(locale, date) => date.getDate().toString()} // 날짜 표시 형식
+          formatDay={(_locale, date) => date.getDate().toString()} // 날짜 표시 형식
         />
       </div>
       {/* {selectedDate && (
