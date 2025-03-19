@@ -1,0 +1,18 @@
+/* 오늘 날짜 스타일 변경 */
+.react-calendar__tile--now {
+  background: #858585 !important; /* 회색 계열로 변경 */
+  color: #ffffff; /* 텍스트 색상 */
+  border-radius: 0.5rem;
+}
+/* 선택된 날짜 스타일 */
+.react-calendar__tile--active {
+  background: #222222 !important; /* 파란색 계열 */
+  color: white !important;
+  border-radius: 0.5rem;
+}
+/* 선택된 날짜에 호버했을 때 스타일 */
+.react-calendar__tile--active:hover {
+  background: #222222 !important; /* 좀 더 진한 파란색 */
+  color: white !important;
+  border-radius: 0.5rem;
+}

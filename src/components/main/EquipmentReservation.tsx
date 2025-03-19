@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { createClient } from "@supabase/supabase-js";
+import "./style/calendar.css";
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL!,
@@ -56,23 +57,29 @@ export default function EquipmentReservation({
   };
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <p className="text-lg font-bold">대여 가능 날짜 선택</p>
-      <Calendar
-        onChange={(date) => setSelectedDate(date as Date)}
-        value={selectedDate}
-        tileDisabled={({ date }) =>
-          reservedDates.some(
-            (reservedDate) =>
-              date.toDateString() === reservedDate.toDateString(),
-          )
-        }
-      />
-      {selectedDate && (
+    <div className="text-onSurface flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
+      <p className="text-base font-medium">대여 가능 날짜 선택</p>
+
+      <div className="flex flex-col items-center justify-center">
+        <Calendar
+          onChange={(date) => setSelectedDate(date as Date)}
+          value={selectedDate}
+          calendarType="gregory"
+          tileDisabled={({ date }) =>
+            reservedDates.some(
+              (reservedDate) =>
+                date.toDateString() === reservedDate.toDateString(),
+            )
+          }
+          className="border-stroke rounded-lg p-2" // 기본 테두리 스타일
+          formatDay={(locale, date) => date.getDate().toString()} // 날짜 표시 형식
+        />
+      </div>
+      {/* {selectedDate && (
         <p className="mt-2 text-blue-500">
           선택한 날짜: {selectedDate.toLocaleDateString()}
         </p>
-      )}
+      )} */}
     </div>
   );
 }

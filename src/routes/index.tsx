@@ -22,9 +22,8 @@ function RouteComponent() {
   );
 
   return (
-    <div className="h-screen bg-gray-400 px-8 py-8">
-      <div className="mx-auto flex max-w-xl flex-col gap-8 rounded-xl bg-white p-8">
-        <p className="mx-auto text-3xl font-bold">KAPA 장비대여</p>
+    <div className="px-8 py-8">
+      <div className="mx-auto flex max-w-xl flex-col gap-8">
         <RentalStatus />
         <AvailableEquipments
           onSelect={(equipment) => {
@@ -37,12 +36,14 @@ function RouteComponent() {
           }}
         />
         {selectedEquipment ? (
-          <div>
+          <div className="flex flex-col gap-8">
             <EquipmentReservation selectedEquipment={selectedEquipment} />
             <RentalForm selectedEquipment={selectedEquipment} />
           </div>
         ) : (
-          <p className="text-gray-500">장비를 선택하세요.</p>
+          <div className="flex w-full items-center justify-center">
+            <p className="text-gray-500">장비를 선택하세요.</p>
+          </div>
         )}
       </div>
     </div>

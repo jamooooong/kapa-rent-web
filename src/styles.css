@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  --color-surface: #f9fafb;
+  --color-onSurface: #222222;
+  --color-onSurfaceVar: #4b5563;
+  --color-stroke: #e5e7eb;
+}
