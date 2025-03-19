@@ -38,7 +38,7 @@ function RouteComponent() {
         />
         <button
           onClick={handleLogin}
-          className="bg-onSurface w-full rounded-lg px-4 py-2 text-lg font-medium text-white hover:bg-stone-500"
+          className="bg-onSurface w-full rounded-lg px-4 py-2 text-lg font-medium text-white hover:bg-stone-600 active:bg-stone-500"
         >
           입장하기
         </button>

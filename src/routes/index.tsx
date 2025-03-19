@@ -4,6 +4,7 @@ import RentalForm from "../components/main/RentalForm";
 import AvailableEquipments from "../components/main/AvailableEquipments";
 import { useState } from "react";
 import EquipmentReservation from "../components/main/EquipmentReservation";
+import Info from "../components/main/Info";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -24,6 +25,7 @@ function RouteComponent() {
   return (
     <div className="px-8 py-8">
       <div className="mx-auto flex max-w-xl flex-col gap-8">
+        <Info />
         <RentalStatus />
         <AvailableEquipments
           onSelect={(equipment) => {

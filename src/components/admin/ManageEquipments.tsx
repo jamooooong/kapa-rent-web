@@ -78,16 +78,16 @@ export default function ManageEquipments() {
       {equipments.length === 0 ? (
         <p className="text-gray-500">현재 등록된 장비가 없습니다.</p>
       ) : (
-        <ul className="border-stroke rounded-lg border p-3 text-sm">
+        <ul className="flex flex-col gap-4 text-sm">
           {equipments.map((equipment) => (
             <li
               key={equipment.id}
-              className="flex items-center justify-between"
+              className="border-stroke flex items-center justify-between rounded-lg border p-3"
             >
               <span className="text-lg">{equipment.name}</span>
               <button
                 onClick={() => handleDelete(equipment.id)}
-                className="rounded bg-red-600 px-4 py-1 text-white"
+                className="cursor-pointer rounded bg-red-600 px-4 py-2 text-white hover:bg-red-800 active:bg-red-900"
               >
                 삭제
               </button>
