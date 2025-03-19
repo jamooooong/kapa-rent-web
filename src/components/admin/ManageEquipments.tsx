@@ -73,16 +73,16 @@ export default function ManageEquipments() {
   if (isLoading) return <div>로딩 중...</div>;
 
   return (
-    <div className="p-6">
-      <h2 className="mb-4 text-2xl font-bold">장비 관리</h2>
+    <div className="text-onSurface flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
+      <h2 className="mb-4 text-xl font-bold">장비 관리</h2>
       {equipments.length === 0 ? (
         <p className="text-gray-500">현재 등록된 장비가 없습니다.</p>
       ) : (
-        <ul className="space-y-2">
+        <ul className="border-stroke rounded-lg border p-3 text-sm">
           {equipments.map((equipment) => (
             <li
               key={equipment.id}
-              className="flex items-center justify-between rounded border p-2"
+              className="flex items-center justify-between"
             >
               <span className="text-lg">{equipment.name}</span>
               <button

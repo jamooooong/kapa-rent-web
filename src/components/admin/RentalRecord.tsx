@@ -110,42 +110,58 @@ export default function RentalRecord() {
   };
 
   return (
-    <div className="p-6">
+    <div className="text-onSurface flex flex-col rounded-lg bg-white p-4 shadow-lg">
       <div>
-        <p className="mb-4 text-2xl font-bold">장비 대여 신청 목록</p>
+        <p className="mb-4 text-base font-medium">장비 대여 신청 목록</p>
         {rentalRequests.length === 0 ? (
-          <p className="text-gray-500">현재 대여 신청이 없습니다.</p>
+          <p className="text-onSurfaceVar text-base">
+            현재 대여 신청이 없습니다.
+          </p>
         ) : (
           <ul className="space-y-4">
             {rentalRequests.map((request) => (
-              <li key={request.id} className="rounded border p-4">
-                <p className="text-lg font-bold">{request.equipment_name}</p>
-                <p>
-                  신청자: {request.name} ({request.student_id})
-                </p>
+              <li
+                key={request.id}
+                className="border-stroke rounded-lg border p-3 text-base"
+              >
+                <div className="mb-2 flex items-center justify-between">
+                  <p className="text-lg font-bold">{request.equipment_name}</p>
+                  {request.status === "rented" ? (
+                    <p className="text-lg font-medium text-red-600">대여중</p>
+                  ) : (
+                    <p className="text-lg font-medium text-green-600">
+                      대여신청
+                    </p>
+                  )}
+                </div>
+
+                <p>신청자: {request.name}</p>
+                <p>학 번: {request.student_id}</p>
                 <p>전화번호: {request.phone}</p>
                 <p>
                   대여 기간: {request.start_date} ~ {request.end_date}
                 </p>
-                {request.status === "rented" ? (
-                  <button
-                    onClick={() =>
-                      handleReturn(request.id, request.equipment_id)
-                    }
-                    className="mt-2 rounded bg-red-600 px-4 py-2 text-white"
-                  >
-                    반납 완료
-                  </button>
-                ) : (
-                  <button
-                    onClick={() =>
-                      handleApprove(request.id, request.equipment_id)
-                    }
-                    className="mt-2 rounded bg-green-600 px-4 py-2 text-white"
-                  >
-                    대여 완료
-                  </button>
-                )}
+                <div className="flex w-full justify-end">
+                  {request.status === "rented" ? (
+                    <button
+                      onClick={() =>
+                        handleReturn(request.id, request.equipment_id)
+                      }
+                      className="text-bold mt-2 rounded bg-red-600 px-4 py-2 text-lg text-white hover:bg-red-800"
+                    >
+                      반납 처리
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() =>
+                        handleApprove(request.id, request.equipment_id)
+                      }
+                      className="text-bold mt-2 rounded bg-green-600 px-4 py-2 text-lg text-white hover:bg-green-800"
+                    >
+                      대여 처리
+                    </button>
+                  )}
+                </div>
               </li>
             ))}
           </ul>

@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as AdminIndexImport } from './routes/admin/index'
+import { Route as AdminManageImport } from './routes/admin/manage'
 import { Route as AdminAdminPageImport } from './routes/admin/adminPage'
 
 // Create/Update Routes
@@ -26,6 +27,12 @@ const IndexRoute = IndexImport.update({
 const AdminIndexRoute = AdminIndexImport.update({
   id: '/admin/',
   path: '/admin/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AdminManageRoute = AdminManageImport.update({
+  id: '/admin/manage',
+  path: '/admin/manage',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminAdminPageImport
       parentRoute: typeof rootRoute
     }
+    '/admin/manage': {
+      id: '/admin/manage'
+      path: '/admin/manage'
+      fullPath: '/admin/manage'
+      preLoaderRoute: typeof AdminManageImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/': {
       id: '/admin/'
       path: '/admin'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin/adminPage': typeof AdminAdminPageRoute
+  '/admin/manage': typeof AdminManageRoute
   '/admin': typeof AdminIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/adminPage': typeof AdminAdminPageRoute
+  '/admin/manage': typeof AdminManageRoute
   '/admin': typeof AdminIndexRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/admin/adminPage': typeof AdminAdminPageRoute
+  '/admin/manage': typeof AdminManageRoute
   '/admin/': typeof AdminIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin/adminPage' | '/admin'
+  fullPaths: '/' | '/admin/adminPage' | '/admin/manage' | '/admin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin/adminPage' | '/admin'
-  id: '__root__' | '/' | '/admin/adminPage' | '/admin/'
+  to: '/' | '/admin/adminPage' | '/admin/manage' | '/admin'
+  id: '__root__' | '/' | '/admin/adminPage' | '/admin/manage' | '/admin/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminAdminPageRoute: typeof AdminAdminPageRoute
+  AdminManageRoute: typeof AdminManageRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminAdminPageRoute: AdminAdminPageRoute,
+  AdminManageRoute: AdminManageRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/admin/adminPage",
+        "/admin/manage",
         "/admin/"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/admin/adminPage": {
       "filePath": "admin/adminPage.tsx"
+    },
+    "/admin/manage": {
+      "filePath": "admin/manage.tsx"
     },
     "/admin/": {
       "filePath": "admin/index.tsx"

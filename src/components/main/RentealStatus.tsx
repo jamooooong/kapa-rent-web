@@ -64,18 +64,32 @@ export default function RentalStatus() {
   };
 
   return (
-    <div className="flex flex-col gap-4 border border-stone-600 bg-white p-4">
-      <p className="text-2xl font-bold">장비대여 현황</p>
+    <div className="text-onSurface flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
+      <p className="text-base font-medium">장비대여 현황</p>
       {rentedEquipments.length === 0 ? (
-        <p className="text-gray-500">현재 대여 중인 장비가 없습니다.</p>
+        <p className="text-onSurfaceVar text-base">
+          현재 대여 중인 장비가 없습니다.
+        </p>
       ) : (
-        <ul className="space-y-2">
+        <ul className="flex flex-col gap-4">
           {rentedEquipments.map((rental) => (
-            <li key={rental.id} className="rounded border p-2">
-              <p className="font-bold">{rental.equipment.name}</p>{" "}
-              {/* `equipment.name` 사용 */}
-              <p>대여자: {rental.name}</p>
-              <p>반납 예정일: {rental.end_date}</p>
+            <li
+              key={rental.id}
+              className="border-stroke rounded-lg border p-3 text-sm"
+            >
+              <div className="flex justify-between">
+                <p className="text-onSurfaceVar">장비:</p>
+                <p className="font-bold">{rental.equipment.name}</p>{" "}
+              </div>
+
+              <div className="flex justify-between">
+                <p className="text-onSurfaceVar">대여자:</p>
+                <p>{rental.name}</p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-onSurfaceVar">반납 예정일: </p>
+                <p>{rental.end_date}</p>
+              </div>
             </li>
           ))}
         </ul>

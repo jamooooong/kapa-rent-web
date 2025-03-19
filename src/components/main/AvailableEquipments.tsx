@@ -33,7 +33,7 @@ export default function AvailableEquipments({
       const { data, error } = await supabase
         .from("equipments")
         .select("id, name, status") // status도 가져옴
-        .eq("status", "available")
+        //.eq("status", "available")
         .order("name", { ascending: true });
 
       if (error) {
@@ -56,16 +56,16 @@ export default function AvailableEquipments({
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex flex-col gap-4 border border-stone-600 bg-white p-4">
-      <p className="text-2xl font-bold">대여 장비 선택</p>
+    <div className="text-onSurface flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
+      <p className="text-base font-medium">대여 장비 선택</p>
       {equipments.length === 0 ? (
-        <p className="text-gray-500">현재 대여 가능한 장비가 없습니다.</p>
+        <p className="text-onSurfaceVar">현재 대여 가능한 장비가 없습니다.</p>
       ) : (
         <ul className="space-y-2">
           {equipments.map((equipment) => (
             <li
               key={equipment.id}
-              className="cursor-pointer rounded border p-2 hover:bg-gray-200"
+              className="border-stroke cursor-pointer rounded-lg border p-3 text-sm hover:bg-gray-200"
               onClick={() => onSelect(equipment)} // onSelect에 전달될 때, equipment는 이제 status를 포함
             >
               {equipment.name}
