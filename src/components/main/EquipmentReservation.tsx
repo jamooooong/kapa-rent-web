@@ -75,11 +75,6 @@ export default function EquipmentReservation({
           formatDay={(_locale, date) => date.getDate().toString()} // 날짜 표시 형식
         />
       </div>
-      {/* {selectedDate && (
-        <p className="mt-2 text-blue-500">
-          선택한 날짜: {selectedDate.toLocaleDateString()}
-        </p>
-      )} */}
     </div>
   );
 }

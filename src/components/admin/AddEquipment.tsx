@@ -54,7 +54,7 @@ export default function AddEquipment() {
         {/* 추가 버튼 */}
         <button
           type="submit"
-          className="mt-4 w-full rounded-lg bg-green-600 px-4 py-2 text-base font-medium text-white"
+          className="mt-4 w-full cursor-pointer rounded-lg bg-green-600 px-4 py-2 text-base font-medium text-white hover:bg-green-800 active:bg-green-900"
         >
           장비 추가
         </button>

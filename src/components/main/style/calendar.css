@@ -6,13 +6,18 @@
 }
 /* 선택된 날짜 스타일 */
 .react-calendar__tile--active {
-  background: #222222 !important; /* 파란색 계열 */
-  color: white !important;
+  background: #ffffff !important; /* 파란색 계열 */
+  color: #222222 !important;
   border-radius: 0.5rem;
 }
+/* 호버 효과 제거 */
+.react-calendar__tile:hover {
+  background: none !important;
+}
+
 /* 선택된 날짜에 호버했을 때 스타일 */
 .react-calendar__tile--active:hover {
-  background: #222222 !important; /* 좀 더 진한 파란색 */
-  color: white !important;
+  background: #ffffff !important; /* 좀 더 진한 파란색 */
+  color: #222222 !important;
   border-radius: 0.5rem;
 }

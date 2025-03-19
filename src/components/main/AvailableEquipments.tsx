@@ -22,6 +22,7 @@ export default function AvailableEquipments({
   const [equipments, setEquipments] = useState<Equipment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null); // 선택된 장비 ID 추적
 
   useEffect(() => {
     fetchEquipments();
@@ -65,8 +66,15 @@ export default function AvailableEquipments({
           {equipments.map((equipment) => (
             <li
               key={equipment.id}
-              className="border-stroke cursor-pointer rounded-lg border p-3 text-sm hover:bg-gray-200"
-              onClick={() => onSelect(equipment)} // onSelect에 전달될 때, equipment는 이제 status를 포함
+              className={`border-stroke cursor-pointer rounded-lg border p-3 text-sm ${
+                selectedId === equipment.id
+                  ? "bg-onSurface text-white"
+                  : "hover:bg-gray-200 active:bg-gray-300"
+              }`}
+              onClick={() => {
+                setSelectedId(equipment.id);
+                onSelect(equipment);
+              }}
             >
               {equipment.name}
             </li>

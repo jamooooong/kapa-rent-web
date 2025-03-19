@@ -147,7 +147,7 @@ export default function RentalRecord() {
                       onClick={() =>
                         handleReturn(request.id, request.equipment_id)
                       }
-                      className="text-bold mt-2 rounded bg-red-600 px-4 py-2 text-lg text-white hover:bg-red-800"
+                      className="text-bold mt-2 rounded bg-red-600 px-4 py-2 text-lg text-white hover:bg-red-800 active:bg-red-900"
                     >
                       반납 처리
                     </button>
@@ -156,7 +156,7 @@ export default function RentalRecord() {
                       onClick={() =>
                         handleApprove(request.id, request.equipment_id)
                       }
-                      className="text-bold mt-2 rounded bg-green-600 px-4 py-2 text-lg text-white hover:bg-green-800"
+                      className="text-bold mt-2 rounded bg-green-600 px-4 py-2 text-lg text-white hover:bg-green-800 active:bg-green-900"
                     >
                       대여 처리
                     </button>
