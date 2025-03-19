@@ -79,7 +79,7 @@ export default function RentalForm({
       return false;
     }
 
-    if (new Date(endDate) <= new Date(startDate)) {
+    if (new Date(endDate) < new Date(startDate)) {
       setErrorMessage("반납일은 대여일 이후여야 합니다.");
       return false;
     }
