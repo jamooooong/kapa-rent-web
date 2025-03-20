@@ -1,23 +1,37 @@
-/* 오늘 날짜 스타일 변경 */
+/* 캘린더 내부 타일만 클릭 불가능하게 설정 */
+.react-calendar__viewContainer {
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* 네비게이션 버튼은 클릭 가능하도록 설정 */
+.react-calendar__navigation {
+  pointer-events: auto !important;
+}
+
+.react-calendar__navigation button {
+  cursor: pointer !important;
+}
+
+/* 오늘 날짜 스타일 */
 .react-calendar__tile--now {
-  background: #858585 !important; /* 회색 계열로 변경 */
-  color: #ffffff; /* 텍스트 색상 */
+  background: #858585 !important;
+  color: #ffffff;
   border-radius: 0.5rem;
 }
-/* 선택된 날짜 스타일 */
-.react-calendar__tile--active {
-  background: #ffffff !important; /* 파란색 계열 */
-  color: #222222 !important;
-  border-radius: 0.5rem;
+
+/* 타일 기본 스타일 */
+.react-calendar__tile {
+  cursor: default !important;
+  pointer-events: none !important;
 }
+
 /* 호버 효과 제거 */
 .react-calendar__tile:hover {
   background: none !important;
 }
 
-/* 선택된 날짜에 호버했을 때 스타일 */
-.react-calendar__tile--active:hover {
-  background: #ffffff !important; /* 좀 더 진한 파란색 */
-  color: #222222 !important;
-  border-radius: 0.5rem;
+/* 클릭 효과 제거 */
+.react-calendar__tile:active {
+  background: none !important;
 }
