@@ -58,7 +58,7 @@ export default function EquipmentReservation({
 
   return (
     <div className="text-onSurface flex flex-col gap-4 rounded-lg bg-white p-4 shadow-lg">
-      <p className="text-base font-medium">대여 가능 날짜 선택</p>
+      <p className="text-base font-medium">대여 가능 날짜</p>
 
       <div className="flex flex-col items-center justify-center">
         <Calendar
